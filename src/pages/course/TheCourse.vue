@@ -246,10 +246,13 @@ watch(
     .card-operate {
       margin-top: 48px;
 
-      // TODO:hover态颜色
       .is-learned {
         background-color: #feb32a;
         border-color: #feb32a;
+        &:hover {
+          background-color: #ffc864;
+          border-color: #ffc864;
+        }
       }
     }
 

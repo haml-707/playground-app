@@ -22,7 +22,7 @@ const linkList = [
 
 const labels = {
   atom: "moocstudio是由开放原子开源基金会（OpenAtom Foundation）孵化及运营的开源项目",
-  contact: "contact@openeuler.org",
+  contact: "contact@openeuler.io",
   copyright: "版权所有 © 2022 moocstudo 保留一切权利",
 };
 

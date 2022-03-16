@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref, computed } from "vue";
 
 import ODropdown from "@/components/ODropdown.vue";
 import ODropDownItem from "@/components/ODropdownItem.vue";
@@ -22,6 +22,7 @@ const props = defineProps({
     default: 0,
   },
 });
+
 const emit = defineEmits(["prev-click", "next-click", "item-click"]);
 
 function handlePrevClick(e) {
@@ -40,13 +41,13 @@ function handleNextClick(e) {
   }
 }
 
-const triangleRotate = ref(false);
-function handleToggle(val) {
-  triangleRotate.value = val;
-}
-
-const label = computed(() => {
-  return `${props.activeIndex}/${props.count}`;
+const dropdown = ref(null);
+const isOpen = computed(() => {
+  if (!dropdown.value) {
+    return false;
+  } else {
+    return dropdown.value.isOpen;
+  }
 });
 
 const data = new Array(props.count).fill(null).map((item, idx) => {
@@ -66,14 +67,15 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
     >
       <div class="arrow"></div>
     </div>
-    <o-dropdown class="dropdown" @toggle="handleToggle">
+    <o-dropdown ref="dropdown" class="dropdown">
       <div class="dropdown-tool">
-        <div class="tool-lable">{{ label }}</div>
+        <p class="tool-lable">
+          <span class="tool-label-count">{{ activeIndex }}</span>
+          <span>/</span>
+          <span class="tool-label-count">{{ count }}</span>
+        </p>
         <div class="tool-icon">
-          <div
-            class="triangle"
-            :class="{ 'triangle-rotate': triangleRotate }"
-          ></div>
+          <div class="triangle" :class="{ 'triangle-rotate': isOpen }"></div>
         </div>
       </div>
 
@@ -113,6 +115,7 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
     cursor: pointer;
 
     .arrow {
+      position: relative;
       width: 10px;
       height: 10px;
       border-top: 1px solid #000;
@@ -131,12 +134,14 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
 
   .prev {
     .arrow {
+      margin-left: 4px;
       transform: rotate(-45deg);
     }
   }
 
   .next {
     .arrow {
+      margin-right: 4px;
       transform: rotate(135deg);
     }
   }
@@ -152,6 +157,14 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
       min-width: 60px;
       display: flex;
       align-items: center;
+
+      .tool-label {
+        &-count {
+          display: inline-block;
+          min-width: 12px;
+          text-align: center;
+        }
+      }
 
       .tool-icon {
         display: flex;

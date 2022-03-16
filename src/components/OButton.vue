@@ -43,7 +43,7 @@ function onClick(e) {
 
 <style lang="scss">
 .o-button {
-  padding: 12px 28px;
+  padding: 11px 28px;
   line-height: 24px;
   font-size: 16px;
   background-color: transparent;

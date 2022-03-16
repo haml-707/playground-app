@@ -5,22 +5,22 @@ const dropdown = ref(null);
 const tool = ref(null);
 const menu = ref(null);
 
-const showMenu = ref(false);
+const isOpen = ref(false);
 const menuHeight = ref(0);
 
 const emit = defineEmits(["toggle"]);
 
 function toggleMenu(flag) {
   if (typeof flag === "undefined" || typeof flag !== "boolean") {
-    showMenu.value = !showMenu.value;
-    emit("toggle", showMenu.value);
+    isOpen.value = !isOpen.value;
+    emit("toggle", isOpen.value);
   } else {
-    showMenu.value = flag;
+    isOpen.value = flag;
   }
 }
 
 function onClick(e) {
-  if (!showMenu.value) {
+  if (!isOpen.value) {
     return;
   }
   if (!dropdown.value.contains(e.target)) {
@@ -30,11 +30,12 @@ function onClick(e) {
 
 defineExpose({
   toggleMenu,
+  isOpen,
 });
 
 watch(
   () => {
-    return showMenu.value;
+    return isOpen.value;
   },
   (val) => {
     const height = menu.value.scrollHeight;
@@ -78,6 +79,11 @@ onUnmounted(() => {
   display: inline-block;
   cursor: pointer;
 
+  &-tool {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   &-menu {
     position: absolute;
     overflow: hidden;

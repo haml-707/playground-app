@@ -6,6 +6,8 @@ import Courses from "@/configs/courses";
 import mitt from "@/shared/mitt";
 import { courseList } from "@/shared/composition/course";
 import { queryChapterDetail } from "@/service/courseAPI";
+import { setCourseStatus } from "@/service/api";
+
 import { PLAYGROUND_KEYS } from "@/pages/playground/shared";
 import { toNumCN } from "@/shared/utils";
 import { isLoggingIn, isLogined } from "@/shared/login";
@@ -18,7 +20,7 @@ import TerminalMask from "@/components/TerminalMask.vue";
 import CourseArticle from "@/components/CourseArticle.vue";
 import ChapterStep from "@/pages/course/chapter/ChapterStep.vue";
 import TerminalGroup from "@/components/TerminalGroup.vue";
-import { setCourseStatus } from "@/service/api";
+import RemainTime from "@/pages/playground/RemainTime.vue";
 
 const courseData = Courses.experience;
 
@@ -156,6 +158,41 @@ watch(
 );
 
 const dropdown = ref(null);
+const showRemainTime = ref(false);
+const showRemainTimeDlg = ref(false);
+
+function toggleTimeoutDlg(show) {
+  showTimeutDlg.value = show;
+}
+
+const timeoutDlgSet = {
+  title: "体验时间到期！",
+  content: "您本次的体验时间已到期，欢迎重新开始，继续体验。",
+  buttons: [
+    {
+      id: 0,
+      label: "重新开始",
+      primary: true,
+      click() {
+        restartChapter();
+      },
+    },
+    {
+      id: 1,
+      label: "返回首页",
+      icon: "arrow-right",
+      isText: true,
+      click() {
+        console.log("重新开始");
+        toggleTimeoutDlg(false);
+        isBegin.value = false;
+        showRemainTime.value = false;
+
+        // backToHome();
+      },
+    },
+  ],
+};
 
 // 输入命令
 function handleCommandClick(e) {
@@ -202,11 +239,11 @@ function finishChapter() {
       },
     ],
   });
-  toggleFinishDialog(true);
+  toggleFinishDlg(true);
 }
 
 // 切换结束对话框
-function toggleFinishDialog(flag) {
+function toggleFinishDlg(flag) {
   if (flag === undefined) {
     showFinishDialog.value = !showFinishDialog.value;
   } else {
@@ -243,7 +280,7 @@ function handleItemClick(idx) {
 // 跳转至某一章节
 function gotoChapter(idx) {
   if (idx >= 0 && idx < chapterList.value.length) {
-    toggleFinishDialog(false);
+    toggleFinishDlg(false);
     terminals.value && terminals.value.closeAllTerminal();
     const item = chapterList.value[idx];
     if (item && item.content_dir) {
@@ -253,17 +290,20 @@ function gotoChapter(idx) {
     }
   }
 
-  toggleFinishDialog(false);
+  toggleFinishDlg(false);
 }
 
 // 重新开始某一章节
 function restartChapter() {
-  showFinishDialog.value = false;
+  toggleFinishDlg(false);
+
   terminals.value && terminals.value.closeAllTerminal();
   currentStepIdx.value = 0;
 }
 
-function onTerminalLoaded() {}
+function onTerminalLoaded(data) {
+  console.log(data);
+}
 
 function onTerminalDisconnect() {}
 
@@ -327,6 +367,9 @@ onBeforeRouteUpdate((to) => {
           </o-dropdown>
           <div class="dropdown-label">{{ currentChapterTitle }}</div>
         </div>
+        <!-- <div v-show="showRemainTime" class="time-tip"> -->
+        <remain-time ref="remainTimeIns"></remain-time>
+        <!-- </div> -->
       </div>
     </div>
     <div class="chapter-content">
@@ -401,7 +444,7 @@ onBeforeRouteUpdate((to) => {
       </div>
     </div>
 
-    <o-dialog :show="showFinishDialog" @close-click="toggleFinishDialog(false)">
+    <o-dialog :show="showFinishDialog" @close-click="toggleFinishDlg(false)">
       <template #head>
         <div class="dlg-title">{{ finishDlgLabels.title }}</div>
       </template>
@@ -555,13 +598,14 @@ onBeforeRouteUpdate((to) => {
     flex-direction: column;
     width: 26.25%;
     height: 100%;
-    padding: 32px 32px 50px;
+    padding: 32px 0 50px;
     @media screen and (max-width: 1023px) {
       width: 100%;
     }
 
     .article-top {
       display: flex;
+      padding: 0 32px 0 32px;
       margin-bottom: 32px;
       &.reverse {
         flex-direction: row-reverse;
@@ -570,8 +614,26 @@ onBeforeRouteUpdate((to) => {
 
     .article-bottom {
       height: 90%;
+      padding-right: 20px;
+      margin-right: 12px;
+      padding-left: 32px;
       overflow-x: hidden;
-      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        height: 0;
+        background-color: #d8d8d8;
+        background-clip: content-box;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
     }
   }
 

@@ -187,7 +187,6 @@ export async function initGuard() {
           // loginMethods: [LoginMethods.PhoneCode],
         });
         guard.on("login", (authClient) => {
-          console.log("authClient:", authClient);
           if (authClient.id) {
             setAuthCode(authClient.id);
             setAuthIdentity(authClient.federationIdentityId || "");

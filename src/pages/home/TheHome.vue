@@ -128,7 +128,7 @@ function gotoCourse(item) {
 .mooc-banner {
   width: 100%;
   background-color: #002fa7;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
   .wrap {
@@ -178,7 +178,7 @@ function gotoCourse(item) {
 .mooc-slogan {
   width: 100%;
   background-color: #002fa7;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 
@@ -241,7 +241,7 @@ function gotoCourse(item) {
     left: 0;
     width: 128px;
     height: 490px;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -252,7 +252,7 @@ function gotoCourse(item) {
     right: 0;
     width: 209px;
     height: 267px;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -276,7 +276,7 @@ function gotoCourse(item) {
         right: 0;
         width: 204px;
         height: 83px;
-        background-size: cover;
+        background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
       }

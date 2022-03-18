@@ -97,6 +97,9 @@ function onClick(e) {
   p {
     margin: 16px 0;
   }
+  img {
+    max-width: 100%;
+  }
 
   ol {
     li {

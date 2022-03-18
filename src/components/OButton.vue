@@ -64,6 +64,10 @@ function onClick(e) {
     border-color: transparent;
     min-width: auto;
     padding: 0;
+    .icon {
+      color: #0c41c9;
+      // background-color: #002fa7;
+    }
   }
 
   &.primary {

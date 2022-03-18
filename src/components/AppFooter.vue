@@ -1,6 +1,6 @@
 <script setup>
-import atomLogo from "@/assets/atom-logo.png";
-import moocLogo from "@/assets/moocstudio-logo-footer.png";
+import atomLogo from "@/assets/logo/atom-logo.png";
+import moocLogo from "@/assets/logo/moocstudio-logo-footer.png";
 
 const linkList = [
   {

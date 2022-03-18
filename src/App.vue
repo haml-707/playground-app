@@ -7,6 +7,8 @@ import { PLAYGROUND_PAGES } from "@/pages/playground/shared";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
+import bg from "@/assets/bg/home-bg-nav.png";
+
 const showFooter = ref(true);
 
 mitt.on(PLAYGROUND_PAGES.SET_FOOTER, (val) => {
@@ -15,7 +17,7 @@ mitt.on(PLAYGROUND_PAGES.SET_FOOTER, (val) => {
 </script>
 
 <template>
-  <header class="app-header">
+  <header class="app-header" :style="{ backgroundImage: `url(${bg})` }">
     <app-header></app-header>
   </header>
 
@@ -34,16 +36,18 @@ mitt.on(PLAYGROUND_PAGES.SET_FOOTER, (val) => {
   position: relative;
   z-index: 2;
   height: 80px;
-  background: #ffffff;
-  box-shadow: 0px 1px 3px 0px rgba(178, 178, 178, 0.5);
+  background-color: #002fa7;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   @media screen and (max-width: 1023px) {
-    height: 60px;
+    // height: 60px;
   }
 }
 .app-body {
   position: relative;
   z-index: 1;
-  min-height: calc(100vh - 80px);
+  // min-height: calc(100vh - 80px);
 }
 .app-dialogs {
   position: relative;

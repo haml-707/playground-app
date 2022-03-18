@@ -368,7 +368,7 @@ onBeforeRouteUpdate((to) => {
           <div class="dropdown-label">{{ currentChapterTitle }}</div>
         </div>
         <!-- <div v-show="showRemainTime" class="time-tip"> -->
-        <remain-time ref="remainTimeIns"></remain-time>
+        <!-- <remain-time ref="remainTimeIns"></remain-time> -->
         <!-- </div> -->
       </div>
     </div>
@@ -431,7 +431,7 @@ onBeforeRouteUpdate((to) => {
       <div class="chapter-content-terminal">
         <terminal-mask v-if="currentStepIdx == 0 || !resourceLoaded">
           <p class="mask-info">Welcome</p>
-          <p class="mask-info">LET'S PLAY _</p>
+          <p class="mask-info">LET'S PLAY<span class="bling">_</span></p>
         </terminal-mask>
         <terminal-group
           ref="terminals"
@@ -470,7 +470,7 @@ onBeforeRouteUpdate((to) => {
 
 <style lang="scss" scoped>
 .chapter-header {
-  height: 92px;
+  height: 80px;
   background: #f5f7fb;
   position: relative;
   z-index: 2;
@@ -492,38 +492,20 @@ onBeforeRouteUpdate((to) => {
       height: 100%;
       .dropdown-icon {
         position: relative;
-        width: 26px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-        .row:nth-child(1) {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 26px;
+        .row {
+          width: 20px;
           height: 2px;
-          background: #000;
-        }
+          background-color: #000000;
 
-        .row:nth-child(2) {
-          position: absolute;
-          top: 50%;
-          left: 0;
-          transform: translateY(-50%);
-          width: 22px;
-          height: 2px;
-          background: #000;
-        }
-
-        .row:nth-child(3) {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 26px;
-          height: 2px;
-          background: #000;
-          &:hover {
-            background: #002fa7;
+          &:nth-child(2) {
+            width: 16px;
           }
         }
 
@@ -533,14 +515,6 @@ onBeforeRouteUpdate((to) => {
           .row:nth-child(3) {
             background: #002fa7;
           }
-        }
-
-        &-text {
-          margin-left: 16px;
-          font-size: 24px;
-          font-weight: normal;
-          color: #000000;
-          line-height: 28px;
         }
       }
 
@@ -571,11 +545,10 @@ onBeforeRouteUpdate((to) => {
 
       .dropdown-label {
         margin-left: 16px;
-        line-height: 28px;
         font-size: 24px;
+        font-weight: bold;
         color: #000000;
-        letter-spacing: 0;
-        font-weight: 400;
+        line-height: 28px;
       }
     }
   }
@@ -648,8 +621,29 @@ onBeforeRouteUpdate((to) => {
     }
 
     .mask-info {
-      font-size: 30px;
+      font-size: 49px;
+      font-weight: 400;
+      color: #d0f2ff;
+      line-height: 49px;
+
+      & + .mask-info {
+        margin-top: 27px;
+        .bling {
+          animation: bling 2s infinite reverse;
+        }
+      }
     }
+  }
+}
+@keyframes bling {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

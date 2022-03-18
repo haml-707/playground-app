@@ -108,7 +108,6 @@ export function queryChapterInfo(coursePath, chapterPath) {
  */
 export function queryStepContent(coursePath, chapterPath, stepPath) {
   const prefix = `/${coursePath}/${chapterPath}/${stepPath}`;
-
   const path = url(prefix);
   return request
     .get(path)

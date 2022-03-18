@@ -9,7 +9,7 @@ import { queryCourseStatus } from "@/service/api";
 import OButton from "@/components/OButton.vue";
 import OCard from "@/components/OCard.vue";
 
-import bannerImg from "@/assets/banner/banner-course.png";
+import bannerBg from "@/assets/bg/course-bg-banner.png";
 
 const router = useRouter();
 const route = useRoute();
@@ -82,14 +82,11 @@ watch(
 </script>
 
 <template>
-  <div class="course-banner">
+  <div class="course-banner" :style="{ backgroundImage: `url(${bannerBg})` }">
     <div class="wrap">
       <div class="course-banner-label">
         <p class="banner-label-title">{{ courseInfo.title }}</p>
         <p class="banner-label-desc">{{ courseInfo.description }}</p>
-      </div>
-      <div class="course-banner-img">
-        <img :src="bannerImg" alt="" />
       </div>
     </div>
   </div>
@@ -133,7 +130,11 @@ watch(
 
 <style lang="scss" scoped>
 .course-banner {
+  width: 100%;
   background: #002fa7;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   .wrap {
     display: flex;
@@ -141,11 +142,11 @@ watch(
     align-items: center;
     max-width: 1488px;
     margin: 0 auto;
-    padding: 40px 36px;
+    padding: 100px 36px 90px;
     @media screen and (max-width: 1023px) {
-      padding: 40px 24px;
-      flex-direction: column;
-      align-items: center;
+      // padding: 100px 24px;
+      // flex-direction: column;
+      // align-items: center;
     }
   }
 
@@ -157,8 +158,8 @@ watch(
       line-height: 76px;
       font-weight: 500;
       @media screen and (max-width: 1023px) {
-        font-size: 40px;
-        line-height: 48px;
+        // font-size: 40px;
+        // line-height: 48px;
       }
     }
     .banner-label-desc {
@@ -168,10 +169,11 @@ watch(
       letter-spacing: 0;
       line-height: 28px;
       font-weight: 400;
+      opacity: 0.8;
 
       @media screen and (max-width: 1023px) {
-        font-size: 16px;
-        line-height: 20px;
+        // font-size: 16px;
+        // line-height: 20px;
       }
     }
   }

@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 
 import ODropdown from "@/components/ODropdown.vue";
 import ODropDownItem from "@/components/ODropdownItem.vue";
+import SvgIcon from "@/components/SvgIcon.vue";
 
 const props = defineProps({
   prevDisabled: {
@@ -65,7 +66,7 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
       :class="{ 'is-disabled': prevDisabled }"
       @click="handlePrevClick"
     >
-      <div class="arrow"></div>
+      <svg-icon name="step-left" class="svg-icon"></svg-icon>
     </div>
     <o-dropdown ref="dropdown" class="dropdown">
       <div class="dropdown-tool">
@@ -94,7 +95,7 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
       :class="{ 'is-disabled': nextDisabled }"
       @click="handleNextClick"
     >
-      <div class="arrow"></div>
+      <svg-icon name="step-right" class="svg-icon"></svg-icon>
     </div>
   </div>
 </template>
@@ -111,44 +112,30 @@ const data = new Array(props.count).fill(null).map((item, idx) => {
     align-items: center;
     width: 32px;
     height: 32px;
+    font-size: 24px;
     border: 1px solid #000000;
     cursor: pointer;
 
-    .arrow {
-      position: relative;
-      width: 10px;
-      height: 10px;
-      border-top: 1px solid #000;
-      border-left: 1px solid #000;
+    &.is-disabled {
+      border: 1px solid #c5c5c5 !important;
+      cursor: not-allowed;
+
+      .svg-icon {
+        color: #c5c5c5 !important;
+      }
     }
 
-    &.is-disabled {
-      border: 1px solid #c5c5c5;
-
-      .arrow {
-        border-top: 1px solid #c5c5c5;
-        border-left: 1px solid #c5c5c5;
+    &:hover {
+      border-color: #002fa7;
+      .svg-icon {
+        color: #002fa7;
       }
     }
   }
 
-  .prev {
-    .arrow {
-      margin-left: 4px;
-      transform: rotate(-45deg);
-    }
-  }
-
-  .next {
-    .arrow {
-      margin-right: 4px;
-      transform: rotate(135deg);
-    }
-  }
-
   .dropdown {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
     height: 32px;
     border: 1px solid rgba(0, 0, 0, 1);
 

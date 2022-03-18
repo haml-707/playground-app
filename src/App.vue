@@ -37,7 +37,7 @@ mitt.on(PLAYGROUND_PAGES.SET_FOOTER, (val) => {
   z-index: 2;
   height: 80px;
   background-color: #002fa7;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
   @media screen and (max-width: 1023px) {

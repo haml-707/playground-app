@@ -132,7 +132,7 @@ watch(
 .course-banner {
   width: 100%;
   background: #002fa7;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 
